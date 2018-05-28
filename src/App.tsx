@@ -1,9 +1,10 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
+import Main from './Main'
 
 ReactDOM.render(
     <div>
-        <h1>Ej ziom</h1>
+        <Main/>
     </div>,
     document.getElementById("root")
 );
