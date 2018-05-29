@@ -1,8 +1,15 @@
 html {
-  background: url(assets/sunlight0.jpg) no-repeat center center fixed;
+  background: url(assets/rainfall0.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover; }
+
+body {
+  font-family: "Open Sans", sans-serif; }
+
+.main-view {
+  max-width: 1200px;
+  margin: 0 auto; }
 
 /*# sourceMappingURL=Main.css.map */
