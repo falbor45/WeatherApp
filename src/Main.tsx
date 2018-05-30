@@ -1,4 +1,5 @@
 import * as React from 'react'
+import './reset.css'
 import './Main.css'
 import Search from './Search'
 
