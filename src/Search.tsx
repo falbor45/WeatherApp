@@ -1,7 +1,8 @@
 import * as React from 'react'
 import './Search.css'
+import Autocomplete from './Autocomplete'
 
-export default class Search extends React.Component<{}, {value: string, isFetching: boolean, predictions: null | Array<{name: string, placeId: string}>}> {
+export default class Search extends React.Component<{}, { value: string, isFetching: boolean, predictions: null | Array<{ name: string, placeId: string }> }> {
     componentDidMount() {
         this.state = {
             value: '',
@@ -38,7 +39,10 @@ export default class Search extends React.Component<{}, {value: string, isFetchi
         return (
             <div>
                 <div className="search-input-wrapper">
-                <input type="text" placeholder="Find place" className="search-input" onChange={(e) => this.handleChange(e)}/>
+                    <input type="text" placeholder="Find place" className={`search-input ${this.state !== null && this.state.predictions !== undefined  && this.state.value !== '' ? 'open' : null}`}
+                           onChange={(e) => this.handleChange(e)}/>
+                    <Autocomplete hidden={this.state === null || this.state.value === '' || this.state.isFetching}
+                                  predictions={this.state !== null && this.state.predictions !== undefined ? this.state.predictions : null}/>
                 </div>
             </div>
         )

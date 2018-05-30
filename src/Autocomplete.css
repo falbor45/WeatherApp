@@ -1,0 +1,17 @@
+.autocomplete-wrapper > div:last-child {
+  border-radius: 0 0 4px 4; }
+
+.autocomplete-item {
+  box-sizing: border-box;
+  font-size: 32px;
+  font-weight: 300;
+  color: #212121;
+  padding: 10px 20px;
+  border: 1px solid #aaa;
+  text-align: center;
+  background: #fff;
+  cursor: pointer; }
+  .autocomplete-item:hover {
+    background: #ddd; }
+
+/*# sourceMappingURL=Autocomplete.css.map */
