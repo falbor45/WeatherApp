@@ -2,7 +2,7 @@ import * as React from 'react'
 import './Search.css'
 import Autocomplete from './Autocomplete'
 
-export default class Search extends React.Component<{}, { value: string, isFetching: boolean, predictions: null | Array<{ name: string, placeId: string }>, isAutocompleted: boolean }> {
+export default class Search extends React.Component<{onClick: any}, { value: string, isFetching: boolean, predictions: null | Array<{ name: string, placeId: string }>, isAutocompleted: boolean }> {
         constructor(props) {
         super(props);
 
@@ -41,11 +41,11 @@ export default class Search extends React.Component<{}, { value: string, isFetch
             .catch(error => console.log(error))
     };
 
-    handleAutocomplete = value => {
+    handleAutocomplete = (placeName: string, placeId: string) => {
         this.setState({
-            value: value,
+            value: placeName,
             isAutocompleted: true
-        })
+        }, () => this.props.onClick(placeId))
     };
 
     render() {
