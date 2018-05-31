@@ -38,7 +38,12 @@ export default class Search extends React.Component<{onClick: any}, { value: str
                     isAutocompleted: false
                 });
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                this.setState({
+                    isFetching: false
+                });
+                console.log(error);
+            })
     };
 
     handleAutocomplete = (placeName: string, placeId: string) => {
