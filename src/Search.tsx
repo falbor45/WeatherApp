@@ -52,7 +52,7 @@ export default class Search extends React.Component<{}, { value: string, isFetch
         return (
             <div>
                 <div className="search-input-wrapper">
-                    <input type="text" placeholder="Find place" value={this.state.value} className={`search-input ${this.state !== null && this.state.predictions !== undefined  && this.state.value !== '' ? 'open' : null}`}
+                    <input type="text" placeholder="Find place" value={this.state.value} className={`search-input ${this.state.value !== '' && !this.state.isAutocompleted ? 'open' : null}`}
                            onChange={(e) => this.handleChange(e)}/>
                     <Autocomplete onClick={this.handleAutocomplete}
                                   hidden={this.state.value === '' || this.state.isFetching || this.state.isAutocompleted}
