@@ -60,7 +60,7 @@ export default class Search extends React.Component<{onClick: any}, { value: str
                     <input type="text" placeholder="Find place" value={this.state.value} className={`search-input ${this.state.value !== '' && !this.state.isAutocompleted ? 'open' : null}`}
                            onChange={(e) => this.handleChange(e)}/>
                     <Autocomplete onClick={this.handleAutocomplete}
-                                  loading={this.state.fetchesRunning > 0}
+                                  loading={this.state.fetchesRunning > 0 && this.state.value !== ''}
                                   hidden={this.state.value === '' || this.state.fetchesRunning > 0 || this.state.isAutocompleted}
                                   predictions={this.state.predictions !== null ? this.state.predictions : null}/>
                 </div>
