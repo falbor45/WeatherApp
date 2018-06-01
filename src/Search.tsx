@@ -2,13 +2,13 @@ import * as React from 'react'
 import './Search.css'
 import Autocomplete from './Autocomplete'
 
-export default class Search extends React.Component<{onClick: any}, { value: string, isFetching: boolean, predictions: null | Array<{ name: string, placeId: string }>, isAutocompleted: boolean }> {
+export default class Search extends React.Component<{onClick: any}, { value: string, fetchesRunning: number, predictions: null | Array<{ name: string, placeId: string }>, isAutocompleted: boolean }> {
         constructor(props) {
         super(props);
 
         this.state = {
             value: '',
-            isFetching: false,
+            fetchesRunning: 0,
             predictions: null,
             isAutocompleted: false
         };
@@ -22,13 +22,13 @@ export default class Search extends React.Component<{onClick: any}, { value: str
 
     fetchCities = value => {
         this.setState({
-            isFetching: true,
+            fetchesRunning: this.state.fetchesRunning + 1,
         });
         fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${value}&types=(cities)&key=AIzaSyCCo_O6Jn8zm1-sQCWPdIQ466seYgvtLtI`)
             .then(response => response.json())
             .then(text => {
                 this.setState({
-                    isFetching: false,
+                    fetchesRunning: this.state.fetchesRunning - 1,
                     predictions: value !== '' ? text.predictions.map(e => {
                         return {
                             name: e.description,
@@ -40,7 +40,7 @@ export default class Search extends React.Component<{onClick: any}, { value: str
             })
             .catch(error => {
                 this.setState({
-                    isFetching: false
+                    fetchesRunning: this.state.fetchesRunning - 1
                 });
                 console.log(error);
             })
@@ -60,7 +60,8 @@ export default class Search extends React.Component<{onClick: any}, { value: str
                     <input type="text" placeholder="Find place" value={this.state.value} className={`search-input ${this.state.value !== '' && !this.state.isAutocompleted ? 'open' : null}`}
                            onChange={(e) => this.handleChange(e)}/>
                     <Autocomplete onClick={this.handleAutocomplete}
-                                  hidden={this.state.value === '' || this.state.isFetching || this.state.isAutocompleted}
+                                  loading={this.state.fetchesRunning > 0}
+                                  hidden={this.state.value === '' || this.state.fetchesRunning > 0 || this.state.isAutocompleted}
                                   predictions={this.state.predictions !== null ? this.state.predictions : null}/>
                 </div>
             </div>
