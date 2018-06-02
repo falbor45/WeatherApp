@@ -3,19 +3,21 @@ import './reset.css'
 import './Main.css'
 import Search from './Search'
 
-export default class Main extends React.Component<{}, {isFetching: boolean}> {
+export default class Main extends React.Component<{}, {isFetching: boolean, weatherData: null | object}> {
     constructor(props) {
         super(props);
 
         this.state = {
-            isFetching: false
+            isFetching: false,
+            weatherData: null
         };
 
         this.handleWeatherSearch.bind(this);
     }
     handleWeatherSearch = placeId => {
         this.setState({
-            isFetching: true
+            isFetching: true,
+            weatherData: null
         }, () => this.fetchWeather(placeId));
     };
 
@@ -26,9 +28,9 @@ export default class Main extends React.Component<{}, {isFetching: boolean}> {
                     .then(response => response.json())
                     .then(text => {
                         this.setState({
-                            isFetching: false
+                            isFetching: false,
+                            weatherData: text
                         });
-                        console.log(text)
                     })
                     .catch(error => {
                         this.setState({
