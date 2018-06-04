@@ -2,8 +2,9 @@ import * as React from 'react'
 import './reset.css'
 import './Main.css'
 import Search from './Search'
+import Weather from './Weather'
 
-export default class Main extends React.Component<{}, {isFetching: boolean, weatherData: null | object}> {
+export default class Main extends React.Component<{}, {isFetching: boolean, weatherData: null | {name: string, main: {temp: string}}}> {
     constructor(props) {
         super(props);
 
@@ -50,6 +51,11 @@ export default class Main extends React.Component<{}, {isFetching: boolean, weat
         return(
             <div className="main-view">
                 <Search onClick={this.handleWeatherSearch}/>
+                {
+                    this.state.weatherData !== null ?
+                        <Weather name={this.state.weatherData.name}
+                                 temp={`${(parseInt(this.state.weatherData.main.temp) - 273.15).toFixed(0)}\xB0C`}/> : null
+                }
             </div>
         )
     }
