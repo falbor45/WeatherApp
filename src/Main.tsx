@@ -4,19 +4,21 @@ import './Main.css'
 import Search from './Search'
 import Weather from './Weather'
 
-export default class Main extends React.Component<{}, {isFetching: boolean, weatherData: null | {name: string, main: {temp: string}}}> {
+export default class Main extends React.Component<{}, {city: null | string, isFetching: boolean, weatherData: null | {name: string, main: {temp: string, pressure: number, humidity: number}, wind: {speed: number}, weather: {description: string}}}> {
     constructor(props) {
         super(props);
 
         this.state = {
+            city: null,
             isFetching: false,
             weatherData: null
         };
 
         this.handleWeatherSearch.bind(this);
     }
-    handleWeatherSearch = placeId => {
+    handleWeatherSearch = (placeId: string, city: string) => {
         this.setState({
+            city: city,
             isFetching: true,
             weatherData: null
         }, () => this.fetchWeather(placeId));
@@ -32,6 +34,7 @@ export default class Main extends React.Component<{}, {isFetching: boolean, weat
                             isFetching: false,
                             weatherData: text
                         });
+                        console.log(text)
                     })
                     .catch(error => {
                         this.setState({
@@ -53,7 +56,11 @@ export default class Main extends React.Component<{}, {isFetching: boolean, weat
                 <Search onClick={this.handleWeatherSearch}/>
                 {
                     this.state.weatherData !== null ?
-                        <Weather name={this.state.weatherData.name}
+                        <Weather description={this.state.weatherData.weather[0].description}
+                                 wind={this.state.weatherData.wind.speed * 3.6} humidity={this.state.weatherData.main.humidity}
+                                 pressure={this.state.weatherData.main.pressure}
+                                 city={this.state.city}
+                                 name={this.state.weatherData.name}
                                  temp={`${(parseInt(this.state.weatherData.main.temp) - 273.15).toFixed(0)}\xB0C`}/> : null
                 }
             </div>

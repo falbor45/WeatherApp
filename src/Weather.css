@@ -24,11 +24,29 @@
   font-size: 2rem;
   color: #4398ff; }
 
-.location {
+.weather-title {
   font-size: 2rem; }
 
-.weather-main {
+.weather-position {
   display: flex;
-  justify-content: space-between; }
+  justify-content: space-between;
+  margin-bottom: 0.5rem; }
+
+.weather-heading {
+  font-size: 2.125rem;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 1rem; }
+
+.weather-description {
+  font-weight: bold;
+  text-align: center;
+  margin: 0.5rem 0 1rem; }
+
+.separator {
+  display: block;
+  height: 1px;
+  background: linear-gradient(90deg, white 0%, #aaaaaa 50%, white 100%);
+  margin-bottom: 0.5rem; }
 
 /*# sourceMappingURL=Weather.css.map */

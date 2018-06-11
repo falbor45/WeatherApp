@@ -50,7 +50,7 @@ export default class Search extends React.Component<{onClick: any}, { value: str
         this.setState({
             value: placeName,
             isAutocompleted: true
-        }, () => this.props.onClick(placeId))
+        }, () => this.props.onClick(placeId, placeName))
     };
 
     render() {
