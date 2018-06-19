@@ -1,0 +1,30 @@
+.background {
+  background: no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -1; }
+
+.background-enter {
+  opacity: 0.01; }
+
+.background-enter-active {
+  opacity: 1;
+  transition: all 1000ms ease-out; }
+
+.background-exit {
+  opacity: 1; }
+
+.background-exit-active {
+  opacity: 0.01;
+  transition: all 1000ms ease-out; }
+
+.background-exit-done {
+  visibility: hidden; }
+
+/*# sourceMappingURL=Background.css.map */

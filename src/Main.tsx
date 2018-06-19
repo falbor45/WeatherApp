@@ -3,9 +3,11 @@ import './reset.css'
 import './Main.css'
 import Search from './Search'
 import Weather from './Weather'
-import { CSSTransition } from 'react-transition-group';
+import Background from './Background'
+import { determineBackground } from './Helpers'
+import { CSSTransition } from 'react-transition-group'
 
-export default class Main extends React.Component<{}, {city: null | string, isFetching: boolean, weatherData: null | {name: string, main: {temp: string, pressure: number, humidity: number}, wind: {speed: number}, weather: {description: string}}, showWeatherComponent: boolean}> {
+export default class Main extends React.Component<{}, {backgroundPaths: {newBackground: string, oldBackground: string}, city: null | string, isFetching: boolean, weatherData: null | {name: string, main: {temp: string, pressure: number, humidity: number}, wind: {speed: number}, weather: {description: string, icon: string}}, showWeatherComponent: boolean}> {
     constructor(props) {
         super(props);
 
@@ -13,7 +15,11 @@ export default class Main extends React.Component<{}, {city: null | string, isFe
             city: null,
             isFetching: false,
             weatherData: null,
-            showWeatherComponent: false
+            showWeatherComponent: false,
+            backgroundPaths: {
+                newBackground: require('./assets/mist2.jpg'),
+                oldBackground: require('./assets/mist1.jpg')
+            }
         };
 
         this.handleWeatherSearch.bind(this);
@@ -35,7 +41,8 @@ export default class Main extends React.Component<{}, {city: null | string, isFe
                         this.setState({
                             isFetching: false,
                             weatherData: text,
-                            showWeatherComponent: true
+                            showWeatherComponent: true,
+                            backgroundPaths: determineBackground(text.weather[0].icon, this.state.backgroundPaths.newBackground)
                         });
                         console.log(text)
                     })
@@ -54,7 +61,9 @@ export default class Main extends React.Component<{}, {city: null | string, isFe
             });
     };
     render() {
-        return(
+        return (
+            <div>
+            <Background images={this.state.backgroundPaths}/>
             <div className="main-view">
                 <Search onClick={this.handleWeatherSearch}/>
                 <CSSTransition
@@ -78,6 +87,7 @@ export default class Main extends React.Component<{}, {city: null | string, isFe
                                  temp={`${(parseInt(this.state.weatherData.main.temp) - 273.15).toFixed(0)}\xB0C`}/> : <div></div>
                 }
                 </CSSTransition>
+            </div>
             </div>
         )
     }

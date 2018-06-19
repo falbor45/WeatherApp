@@ -13,10 +13,33 @@ const imagePaths = {
         './src/assets/thunderstorm0.jpg',
         './src/assets/thunderstorm1.jpg',
         './src/assets/thunderstorm2.jpg'
+    ],
+    mist: [
+        './src/assets/mist0.jpg',
+        './src/assets/mist1.jpg',
+        './src/assets/mist2.jpg'
+    ],
+    snow: [
+        './src/assets/snow0.jpg'
     ]
 };
 
-export const setRandomBackground = (type: string) => {
-    document.documentElement.style.background = `url('${imagePaths[type][Math.floor(Math.random() * imagePaths[type].length)]}') no-repeat center center fixed`;
-    return null;
-}
+export const determineBackground = (openWeatherIcon: string, oldBackground) => {
+        let types = {
+            1: 'sunlight',
+            2: 'sunlight',
+            3: 'rainfall',
+            4: 'rainfall',
+            9: 'rainfall',
+            10: 'rainfall',
+            11: 'thunderstorm',
+            13: 'snow',
+            50: 'mist'
+        };
+        let type = types[parseInt(openWeatherIcon)];
+        console.log(openWeatherIcon)
+        return {
+            newBackground: imagePaths[type][Math.floor(Math.random() * imagePaths[type].length)],
+            oldBackground: oldBackground
+        }
+};
