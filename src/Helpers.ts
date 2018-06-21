@@ -24,22 +24,9 @@ const imagePaths = {
     ]
 };
 
-export const determineBackground = (openWeatherIcon: string, oldBackground) => {
-        let types = {
-            1: 'sunlight',
-            2: 'sunlight',
-            3: 'rainfall',
-            4: 'rainfall',
-            9: 'rainfall',
-            10: 'rainfall',
-            11: 'thunderstorm',
-            13: 'snow',
-            50: 'mist'
-        };
-        let type = types[parseInt(openWeatherIcon)];
-        console.log(openWeatherIcon)
-        return {
-            newBackground: imagePaths[type][Math.floor(Math.random() * imagePaths[type].length)],
-            oldBackground: oldBackground
-        }
-};
+export const setRandomBackground = () => {
+    let types = Object.keys(imagePaths);
+    let randomType = types[Math.floor(Math.random() * types.length)];
+
+    return imagePaths[randomType][Math.floor(Math.random() * imagePaths[randomType].length)]
+}
